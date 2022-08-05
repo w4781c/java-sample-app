@@ -19,6 +19,7 @@ jobs:
       - name: List files in the repository
         run: |
           pwd
+          whoami 
           ls ${{ github.workspace }} | tee files.txt
       - name: Upload packages to artifactory
         uses: actions/upload-artifact@v2
