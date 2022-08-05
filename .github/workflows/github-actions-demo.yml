@@ -18,5 +18,11 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
         run: |
-          ls ${{ github.workspace }}
+          pwd
+          ls ${{ github.workspace }} | tee files.txt
+      - name: Upload packages to artifactory
+        uses: actions/upload-artifact@v2
+        with:
+          name: file.txt
+          path: files.txt
       - run: echo "🍏 This job's status is ${{ job.status }}."
