@@ -31,3 +31,13 @@ jobs:
           name: file.txt
           path: files.txt
       - run: echo "🍏 This job's status is ${{ job.status }}."
+  Test-GitHub-Actions:
+    needs: [ Explore-GitHub-Actions ]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically run after Explore-GitHub-Actions"
+      - name: disable step testing
+        if: ${{ false }}  # disable for now
+        run: |
+          echo "I am a testing step"
+
