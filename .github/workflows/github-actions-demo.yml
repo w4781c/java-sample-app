@@ -32,6 +32,7 @@ jobs:
           path: files.txt
       - run: echo "🍏 This job's status is ${{ job.status }}."
   Test-GitHub-Actions:
+    if: ${{ false }}  # disable for now
     needs: [ Explore-GitHub-Actions ]
     runs-on: ubuntu-latest
     steps:
