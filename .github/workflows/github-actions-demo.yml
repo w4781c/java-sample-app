@@ -29,13 +29,13 @@ jobs:
           pwd
           whoami 
           mkdir -p builds.edb/debian/x86_64/
-          ls ${{ github.workspace }} | tee builds.edb/debian/x86_64/edb-pem-files1.txt
-          ls ${{github.workspace}} | tee builds.edb/debian/x86_64/edb-pem-files2.txt
+          ls ${{ github.workspace }} | tee builds.edb/debian/x86_64/edb-pem-files1-deb11_amd64.txt
+          ls ${{github.workspace}} | tee builds.edb/debian/x86_64/edb-pem-files2-deb11_amd64.txt
       - name: Upload packages to artifactory
         uses: actions/upload-artifact@v3
         with:
           name: files
-          path: builds.edb/debian/x86_64/edb-pem*.txt
+          path: builds.edb/debian/x86_64/edb-pem*deb11_amd64.txt
       - run: echo "🍏 This job's status is ${{ job.status }}."
   Test-GitHub-Actions:
     if: ${{ false }}  # disable for now
