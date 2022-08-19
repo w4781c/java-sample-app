@@ -49,7 +49,7 @@ jobs:
           echo "I am a testing step"
 
   Branch-Specific-GitHub-Actions:
-    if: ${{ github.ref != ref/heads/master }}  # not for master
+    if: ${{ github.ref != 'ref/heads/master' }}  # not for master
     needs: [ Explore-GitHub-Actions ]
     runs-on: ubuntu-latest
     steps:
