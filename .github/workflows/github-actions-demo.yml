@@ -1,7 +1,7 @@
 name: GitHub Actions Demo
 on:
   push:
-    branches: [ workflow, main ]
+    branches: [ workflow, main, release ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -47,4 +47,14 @@ jobs:
         if: ${{ false }}  # disable for now
         run: |
           echo "I am a testing step"
+
+  Branch-Specific-GitHub-Actions:
+    if: ${{ github.ref != ref/heads/master }}  # not for master
+    needs: [ Explore-GitHub-Actions ]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job is branch specific"
+      - name: step testing
+        run: |
+          echo "I am a testing step on non-master branch"
 
