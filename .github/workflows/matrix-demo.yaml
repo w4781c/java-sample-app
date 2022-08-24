@@ -29,3 +29,24 @@ jobs:
         run: |
           echo "Hello, ${{matrix.VERSION}} ! This is ${{env.NAME}} from ${{env.REPO}}"
 
+  two-dimensions-matrix-job:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        VERSION_CODE: [ v14, v13, v12, v11 ]
+        VERSION_NAME: [ Jammy, Bullsye, Bookworm, Flagship ]
+
+    steps:
+
+      - name: Checkout source repo
+        uses: actions/checkout@v3
+
+      - name: Display ${{matrix.VERSION_CODE}} value
+        run: |
+          echo "Display matrix value: ${{matrix.VERSION_CODE}} -> ${{matrix.VERSION_NAME}}"
+
+      - name: Say hello to ${{matrix.VERSION_NAME}}
+        run: |
+          echo "Hello, ${{matrix.VERSION_NAME}} ! This is ${{env.NAME}} from ${{env.REPO}}"
+
