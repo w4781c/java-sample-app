@@ -14,18 +14,18 @@ jobs:
 
     strategy:
       matrix:
-        VERSION: [ 14, 13, 12, 11 ]
+        VERSION: [ v14, v13, v12, v11 ]
 
     steps:
 
       - name: Checkout source repo
         uses: actions/checkout@v3
 
-      - name: Display ${{matrix.EPAS_MAJOR_VERSION}} value
+      - name: Display ${{matrix.VERSION}} value
         run: |
           echo "Display matrix value: ${{matrix.VERSION}}"
 
-      - name: Say hello to ${{matrix.EPAS_MAJOR_VERSION}}
+      - name: Say hello to ${{matrix.VERSION}}
         run: |
           echo "Hello, ${{matrix.VERSION}} ! This is ${{env.NAME}} from ${{env.REPO}}"
 
