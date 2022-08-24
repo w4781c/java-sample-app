@@ -1,0 +1,31 @@
+name: Matrix-Job-Builder
+
+env:
+  REPO: "dev"
+  NAME: "Jim"
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  one-dimension-matrix-job:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        VERSION: [ 14, 13, 12, 11 ]
+
+    steps:
+
+      - name: Checkout source repo
+        uses: actions/checkout@v3
+
+      - name: Display ${{matrix.EPAS_MAJOR_VERSION}} value
+        run: |
+          echo "Display matrix value: ${{matrix.VERSION}}"
+
+      - name: Say hello to ${{matrix.EPAS_MAJOR_VERSION}}
+        run: |
+          echo "Hello, ${{matrix.VERSION}} ! This is ${{env.NAME}} from ${{env.REPO}}"
+
