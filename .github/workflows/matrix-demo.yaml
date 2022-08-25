@@ -35,7 +35,10 @@ jobs:
     strategy:
       matrix:
         VERSION_CODE: [ v14, v13, v12, v11 ]
-        VERSION_NAME: [ amd64 ]
+        VERSION_NAME: [ ppc, s390 ]
+        include:
+          - VERSION_CODE: v15
+            VERSION_NAME: x86
 
     steps:
 
