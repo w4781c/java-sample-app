@@ -1,0 +1,72 @@
+# This workflow will run the pem api test suite.
+
+name: API test case execution
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SERVER_NAME: PG13
+      USERNAME: postgres
+      HOST_IP: localhost
+      PASSWORD: edb
+      PORT: 5432
+      DB_NAME: postgres
+      SSL_MODE: prefer
+      BINARY_PATH: /usr/lib/postgresql/13/bin/
+      PSQL_PATH: /usr/bin/psql
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_PASSWORD: ${{ env.PASSWORD }}
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: 'master'
+
+    - name: Configuring postgres server for ssl connection
+      run: |
+        PGPASSWORD="${{ env.PASSWORD }}" psql -h ${{ env.HOST_IP}} -U ${{ env.USERNAME}} << EOF
+        alter system set ssl = on;
+        alter system set ssl_cert_file = '/var/lib/postgresql/server.crt';
+        alter system set ssl_key_file = '/var/lib/postgresql/server.key';
+        EOF
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Set up NodeJs version 14
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Set up Yarn version 2.3.0
+      uses: borales/actions-yarn@v2.3.0
+
+    - name: Install python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        sudo apt-get install libkrb5-dev
+        pip install wheel
+        pip install --use-deprecated=legacy-resolver -r requirements.txt
+
+    - name: Execute API test cases
+      run: |
+        echo "Then env is ready. Let's rock!"
