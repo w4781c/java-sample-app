@@ -35,21 +35,18 @@ jobs:
 
     env:
       PPAS_VERSION: "14"
-
-    strategy:
-      matrix:
-        VERSION_CODE: [ ${{ inputs.version }} ]
-        VERSION_NAME: [ ${{ inputs.architects }} ]
+      VERSION_CODE: ${{ inputs.version }}
+      VERSION_NAME: ${{ inputs.architects }}
 
     steps:
       - name: Checkout source repo
         uses: actions/checkout@v3
 
-      - name: Display ${{matrix.VERSION_CODE}} value
+      - name: Display ${{env.VERSION_CODE}} value
         run: |
           echo "${{env.PPAS_VERSION}}"
 
-      - name: Say hello to ${{matrix.VERSION_NAME}}
+      - name: Say hello to ${{env.VERSION_NAME}}
         run: |
-          echo "Hello, ${{matrix.VERSION_NAME}} ! This is ${{env.NAME}} from ${{env.REPO}}"
+          echo "Hello, ${{env.VERSION_NAME}} ! This is ${{env.NAME}} from ${{env.REPO}}"
 
