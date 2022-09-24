@@ -6,7 +6,29 @@ env:
 on:
   push:
     branches: [ main ]
+
   workflow_dispatch:
+    inputs:
+      versions:
+        description: 'DB Version'
+        required: true
+        default: 'v14, v13, v12, v11'
+        type: choice
+        options:
+        - v14, v13, v12, v11
+        - v14
+        - v13
+        - v12
+        - v11
+      architects:
+        description: 'Architecture'
+        required: true
+        default: 'ppc, s390'
+        type: choice
+        options:
+        - ppc, s390
+        - ppc
+        - s390
 
 jobs:
   one-dimension-matrix-job:
@@ -34,8 +56,8 @@ jobs:
 
     strategy:
       matrix:
-        VERSION_CODE: [ v14, v13, v12, v11 ]
-        VERSION_NAME: [ ppc, s390 ]
+        VERSION_CODE: [  ${{ inputs.versions }} ]
+        VERSION_NAME: [  ${{ inputs.architects}} ]
         include:
           - VERSION_CODE: v15
             VERSION_NAME: x86
