@@ -38,8 +38,8 @@ jobs:
 
     strategy:
       matrix:
-        VERSION_CODE: ${{ inputs.version }}
-        VERSION_NAME: ${{ inputs.architects }}
+        VERSION_CODE: [ ${{ inputs.version }} ]
+        VERSION_NAME: [ ${{ inputs.architects }} ]
 
     steps:
       - name: Checkout source repo
