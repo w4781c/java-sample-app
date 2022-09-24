@@ -33,7 +33,6 @@ jobs:
   two-dimensions-matrix-job:
     runs-on: ubuntu-latest
 
-
     env:
       PPAS_VERSION: "14"
 
@@ -43,7 +42,6 @@ jobs:
         VERSION_NAME: ${{ inputs.architects }}
 
     steps:
-
       - name: Checkout source repo
         uses: actions/checkout@v3
 
