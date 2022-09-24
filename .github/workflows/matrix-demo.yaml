@@ -35,11 +35,11 @@ jobs:
 
 
     env:
-      if: ${{ inputs.version == v14 }}
+      if: ${{ inputs.version == 'v14' }}
       PPAS_VERSION: "14"
-      if: ${{ inputs.version == v13 }}
+      if: ${{ inputs.version == 'v13' }}
       PPAS_VERSION: "13"
-      if: ${{ inputs.version == v12 }}
+      if: ${{ inputs.version == 'v12' }}
       PPAS_VERSION: "12"
 
     strategy:
