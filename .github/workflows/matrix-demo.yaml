@@ -34,15 +34,8 @@ jobs:
     runs-on: ubuntu-latest
 
 
-    if: ${{ inputs.version == 'v14' }}
-      env:
-        PPAS_VERSION: "14"
-    if: ${{ inputs.version == 'v13' }}
-      env:
-        PPAS_VERSION: "13"
-    if: ${{ inputs.version == 'v12' }}
-      env:
-        PPAS_VERSION: "12"
+    env:
+      PPAS_VERSION: "14"
 
     strategy:
       matrix:
