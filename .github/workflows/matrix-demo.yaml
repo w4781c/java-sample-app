@@ -9,13 +9,12 @@ on:
 
   workflow_dispatch:
     inputs:
-      versions:
+      version:
         description: 'DB Version'
         required: true
-        default: '[ v14, v13, v12, v11 ]'
+        default: 'v14'
         type: choice
         options:
-        - [ v14, v13, v12, v11 ]
         - v14
         - v13
         - v12
@@ -23,53 +22,43 @@ on:
       architects:
         description: 'Architecture'
         required: true
-        default: 'ppc, s390'
+        default: 'x86'
         type: choice
         options:
-        - ppc, s390
+        - x86
         - ppc
         - s390
 
 jobs:
-  one-dimension-matrix-job:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        VERSION: [ v14, v13, v12, v11 ]
-
-    steps:
-
-      - name: Checkout source repo
-        uses: actions/checkout@v3
-
-      - name: Display ${{matrix.VERSION}} value
-        run: |
-          echo "Display matrix value: ${{matrix.VERSION}}"
-
-      - name: Say hello to ${{matrix.VERSION}}
-        run: |
-          echo "Hello, ${{matrix.VERSION}} ! This is ${{env.NAME}} from ${{env.REPO}}"
-
   two-dimensions-matrix-job:
     runs-on: ubuntu-latest
 
+
+    env:
+      if: ${{ inputs.version == v14 }}
+        PPAS_VERSION: "14"
+      if: ${{ inputs.version == v13 }}
+        PPAS_VERSION: "13"
+      if: ${{ inputs.version == v12 }}
+        PPAS_VERSION: "12"
+
     strategy:
       matrix:
-        VERSION_CODE: ${{ inputs.versions }}
-        VERSION_NAME: [ ppc, s390 ]
-        include:
-          - VERSION_CODE: v15
-            VERSION_NAME: x86
+        VERSION_CODE: ${{ inputs.version }}
+        VERSION_NAME: ${{ inputs.architects }}
 
     steps:
 
       - name: Checkout source repo
         uses: actions/checkout@v3
 
-      - name: Display ${{matrix.VERSION_CODE}} value
+      - display environment variables
         run: |
           echo "Display matrix value: ${{matrix.VERSION_CODE}} -> ${{matrix.VERSION_NAME}}"
+
+      - name: Display ${{matrix.VERSION_CODE}} value
+        run: |
+          echo "${{env.PPAS_VERSION}}"
 
       - name: Say hello to ${{matrix.VERSION_NAME}}
         run: |
