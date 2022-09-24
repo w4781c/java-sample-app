@@ -52,10 +52,6 @@ jobs:
       - name: Checkout source repo
         uses: actions/checkout@v3
 
-      - display environment variables
-        run: |
-          echo "Display matrix value: ${{matrix.VERSION_CODE}} -> ${{matrix.VERSION_NAME}}"
-
       - name: Display ${{matrix.VERSION_CODE}} value
         run: |
           echo "${{env.PPAS_VERSION}}"
