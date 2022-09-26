@@ -1,7 +1,7 @@
 name: Matrix-Job-Builder
 
 env:
-  REPO: "dev"
+  REPO: "staging-dev"
   NAME: "Jim"
 on:
   push:
@@ -9,25 +9,26 @@ on:
 
   workflow_dispatch:
     inputs:
-      version:
-        description: 'DB Version'
+      platform:
+        description: 'Platform'
         required: true
-        default: 'v14'
+        default: 'debian11'
         type: choice
         options:
-        - v14
-        - v13
-        - v12
-        - v11
-      architects:
+        - debian11
+        - rhel8
+        - sles12
+        - sles15
+      architect:
         description: 'Architecture'
         required: true
-        default: 'x86'
+        default: 'amd64'
         type: choice
         options:
-        - x86
-        - ppc
-        - s390
+        - amd64
+        - ppc64le
+        - s390x
+        - x86_64
 
 jobs:
   two-dimensions-matrix-job:
