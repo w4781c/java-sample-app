@@ -1,0 +1,22 @@
+name: Test Maturity
+description: Test maturity
+
+inputs:
+  maturity:
+    description: maturity
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get Test maturity
+      id: get-test-maturity
+      run: |
+        MATURITY=${{ inputs.maturity }}
+
+        # default to hotfix 
+        MATURITY=${MATURITY:-"hotfix"}
+
+        echo "MATURITY=${MATURITY}" >> $GITHUB_ENV
+        echo "MATURITY = ${MATURITY}"
+      shell: bash
