@@ -14,7 +14,7 @@ runs:
       run: |
         MATURITY=${{ inputs.maturity }}
 
-        # default to hotfix 
+        # default to hotfix
         MATURITY=${MATURITY:-"hotfix"}
 
         echo "MATURITY=${MATURITY}" >> $GITHUB_ENV
