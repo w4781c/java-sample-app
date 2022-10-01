@@ -13,10 +13,9 @@ runs:
       id: get-test-maturity
       run: |
         MATURITY=${{ inputs.maturity }}
-        DEFAULT_MATURITY=${{ inputs.maturity.default }}
 
         # default to hotfix
-        MATURITY=${MATURITY:-"${DEFAULT_MATURITY}"}
+        MATURITY=${MATURITY:-"hotfix"}
 
         echo "MATURITY=${MATURITY}" >> $GITHUB_ENV
         echo "MATURITY = ${MATURITY}"

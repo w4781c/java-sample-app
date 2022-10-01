@@ -40,6 +40,7 @@ jobs:
           ls -l
           md5sum image.png || true
           echo "${{ inputs.maturity }}"
+          echo "${{ inputs.maturity.default }}"
 
       - name: Get maturity
         id: get-maturity
