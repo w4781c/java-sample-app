@@ -8,7 +8,7 @@ on:
       maturity:
         description: Maturity level of the package
         required: true
-        default: release
+        default: 'release'
         type: choice
         options:
           - ALL
