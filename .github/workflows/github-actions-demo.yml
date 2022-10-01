@@ -39,7 +39,7 @@ jobs:
           echo "I am a testing step"
           ls -l
           md5sum image.png || true
-          echo "${{ inputs.maturity }}
+          echo "${{ inputs.maturity }}"
 
       - name: Get maturity
         id: get-maturity
