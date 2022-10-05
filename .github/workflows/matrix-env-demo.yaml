@@ -5,7 +5,7 @@ env:
   NAME: "Jim"
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
@@ -20,6 +20,7 @@ jobs:
 
 
   one-dimension-matrix-job:
+    needs: [ pre-matrix-job ]
     runs-on: ubuntu-latest
 
     strategy:
@@ -38,6 +39,7 @@ jobs:
 
 
   post-matrix-job:
+    needs: [ pre-matrix-job, one-dimension-matrix-job ]
     runs-on: ubuntu-latest
 
     steps:
