@@ -1,4 +1,4 @@
-name: Matrix-Job-Builder
+name: Matrix-Env-Builder
 
 env:
   REPO: "dev"
@@ -9,10 +9,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  pre-matrix-job
+  pre-matrix-job:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: set value
         run: |
           echo "VERSION_CODE=ver" >> $GITHUB_ENV
