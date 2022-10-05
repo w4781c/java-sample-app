@@ -1,0 +1,51 @@
+name: Matrix-Job-Builder
+
+env:
+  REPO: "dev"
+  NAME: "Jim"
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  pre-matrix-job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: set value
+        run: |
+          echo "VERSION_CODE=ver" >> $GITHUB_ENV
+
+
+  one-dimension-matrix-job:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        VERSION: [ v14, v13, v12, v11 ]
+
+    steps:
+
+      - name: Checkout source repo
+        uses: actions/checkout@v3
+
+      - name: Display ${{matrix.VERSION}} value
+        run: |
+          echo "Display matrix value: ${{matrix.VERSION}}"
+          echo "VERSION_NAME=${{ matrix.VERSION }}" >> $GITHUB_ENV
+
+
+  post-matrix-job:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout source repo
+        uses: actions/checkout@v3
+
+      - name: Display value
+        run: |
+          echo "Display matrix value: ${VERSION_CODE} -> ${VERSION_NAME}"
+
+
