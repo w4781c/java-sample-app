@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        VERSION: [ v14, v13, v12, v11 ]
+        VERSION: [ v14, v13 ]
 
     steps:
 
@@ -25,11 +25,18 @@ jobs:
         run: |
           echo "Display matrix value: ${{matrix.VERSION}}"
 
+      - name: show env var 
+        run: |
+          echo "$GITHUB_RUN_ID"
+          echo "$GITHUB_RUN_NUMBER"
+
       - name: Say hello to ${{matrix.VERSION}}
         run: |
           echo "Hello, ${{matrix.VERSION}} ! This is ${{env.NAME}} from ${{env.REPO}}"
+          ls file-not-exist
 
   two-dimensions-matrix-job:
+    if: ${{ false }}
     runs-on: ubuntu-latest
 
     strategy:
