@@ -5,7 +5,7 @@ env:
   NAME: "Jim"
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
@@ -33,7 +33,7 @@ jobs:
       - name: Say hello to ${{matrix.VERSION}}
         run: |
           echo "Hello, ${{matrix.VERSION}} ! This is ${{env.NAME}} from ${{env.REPO}}"
-          ls file-not-exist
+          ls -l ${{ matrix.VERSION }}
 
   two-dimensions-matrix-job:
     if: ${{ false }}
