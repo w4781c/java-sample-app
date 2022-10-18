@@ -34,6 +34,9 @@ jobs:
         run: |
           echo "PEM_VERSION=8.5.0" >> $GITHUB_ENV
           echo "RELEASE_VERSION=1" >> $GITHUB_ENV
+          echo "$GITHUB_RUN_ID"
+          echo "$GITHUB_RUN_NUMBER"
+
       - name: disable step testing
         run: |
           echo "I am a testing step"
