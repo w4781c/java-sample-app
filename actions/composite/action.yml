@@ -21,6 +21,7 @@ runs:
       shell: bash
     - name: conditional step
       if: ${{ inputs.who-to-greet != 'x86_64' }}
+      shell: bash
       run: |
         echo "Conditional step is executed"
     - run: goodbye.sh
