@@ -24,5 +24,3 @@ runs:
       shell: bash
       run: |
         echo "Conditional step is executed"
-    - run: goodbye.sh
-      shell: bash
