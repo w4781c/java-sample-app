@@ -37,6 +37,16 @@ jobs:
           echo "$GITHUB_RUN_ID"
           echo "$GITHUB_RUN_NUMBER"
 
+      - name: composite job 1
+        uses: ./actions/composite
+        with:
+          who-to-greet: x86_64
+
+      - name: composite job 2
+        uses: ./actions/composite
+        with:
+          who-to-greet: ppc64le 
+
       - name: disable step testing
         run: |
           echo "I am a testing step"
