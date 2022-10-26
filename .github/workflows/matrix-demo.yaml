@@ -8,7 +8,7 @@ on:
 
 jobs:
   one-dimension-matrix-job:
-    name: one-dimension-${{ matrix.name }}
+    name: one-dimension-${{ matrix.VERSION }}
     runs-on: ubuntu-latest
 
     strategy:
