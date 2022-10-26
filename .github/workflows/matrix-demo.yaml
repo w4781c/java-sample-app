@@ -35,7 +35,6 @@ jobs:
           ls -l ${{ matrix.VERSION }} || true
 
   two-dimensions-matrix-job:
-    if: ${{ false }}
     runs-on: ubuntu-latest
 
     strategy:
