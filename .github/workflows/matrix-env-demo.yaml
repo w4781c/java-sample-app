@@ -4,8 +4,6 @@ env:
   REPO: "dev"
   NAME: "Jim"
 on:
-  push:
-    branches: [ master ]
   workflow_dispatch:
 
 jobs:
