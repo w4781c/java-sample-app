@@ -8,7 +8,6 @@ on:
 
 jobs:
   one-dimension-matrix-job:
-    if: ${{ matrix.VERSION == 'v14' }}
     name: one-dimension-${{ matrix.VERSION }}
     runs-on: ubuntu-latest
 
@@ -33,7 +32,7 @@ jobs:
       - name: Say hello to ${{matrix.VERSION}}
         run: |
           echo "Hello, ${{matrix.VERSION}} ! This is ${{env.NAME}} from ${{env.REPO}}"
-          ls -l ${{ matrix.VERSION }}
+          ls -l ${{ matrix.VERSION }} || true
 
   two-dimensions-matrix-job:
     if: ${{ false }}
@@ -42,10 +41,12 @@ jobs:
     strategy:
       matrix:
         VERSION_CODE: [ v14, v13, v12, v11 ]
-        VERSION_NAME: [ ppc, s390 ]
+        VERSION_NAME: [ ppc, s390, x86]
         include:
           - VERSION_CODE: v15
             VERSION_NAME: x86
+        exclude:
+          - VERSION_NAME: x86
 
     steps:
 
