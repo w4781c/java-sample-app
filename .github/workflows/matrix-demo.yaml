@@ -8,6 +8,7 @@ on:
 
 jobs:
   one-dimension-matrix-job:
+    name: one-dimension-${{ matrix.name }}
     runs-on: ubuntu-latest
 
     strategy:
