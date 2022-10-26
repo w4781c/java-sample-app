@@ -8,7 +8,7 @@ on:
 
 jobs:
   one-dimension-matrix-job:
-    if: {{ matrix.VERSION == 'v14' }}
+    if: ${{ matrix.VERSION == 'v14' }}
     name: one-dimension-${{ matrix.VERSION }}
     runs-on: ubuntu-latest
 
