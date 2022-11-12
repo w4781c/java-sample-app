@@ -66,7 +66,8 @@ jobs:
     needs: two-dimension-matrix-job
 
     strategy:
-      matrix:  ${{ fromJson([{"distro": "sles", "distro-version": "15sp3", "architecture": "amd64", "package-version": "8.7.0-1.3418945733.119.1", "package-type": "rpm", "name": "amd64"}, {"distro": "sles", "distro-version": "15sp3", "architecture": "ppc64le", "package-version": "8.7.0-1.3418945733.119.1", "package-type": "rpm", "name": "ppc64le"}, {"distro": "sles", "distro-version": "15sp3", "architecture": "s390x", "package-version": "8.7.0-1.3418945733.119.1", "package-type": "rpm", "name": "s390x"}]) }}
+      matrix:
+        include:  ${{ fromJson([{"distro": "sles", "distro-version": "15sp3", "architecture": "amd64", "package-version": "8.7.0-1.3418945733.119.1", "package-type": "rpm", "name": "amd64"}, {"distro": "sles", "distro-version": "15sp3", "architecture": "ppc64le", "package-version": "8.7.0-1.3418945733.119.1", "package-type": "rpm", "name": "ppc64le"}, {"distro": "sles", "distro-version": "15sp3", "architecture": "s390x", "package-version": "8.7.0-1.3418945733.119.1", "package-type": "rpm", "name": "s390x"}]) }}
 
     steps:
       - name: Display matrix values
