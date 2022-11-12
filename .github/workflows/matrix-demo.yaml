@@ -8,8 +8,8 @@ on:
 
 jobs:
   package:
-    #name: smoke-test-${{ matrix.distro }}/${{ matrix.distro-version }}/${{ matrix.architecture }}:(${{ matrix.pg-version }})
-    name: ${{ matrix.name }}
+    #name: smoke-tests-${{ matrix.name }}
+    name: smoke-tests-${{ matrix.distro }}/${{ matrix.distro-version }}/${{ matrix.architecture }}:(${{ matrix.pg-version }})
     runs-on: ubuntu-latest
 
     strategy:
