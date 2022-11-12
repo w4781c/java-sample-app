@@ -29,3 +29,5 @@ runs:
       shell: bash
       run: |
         echo "${WORKFLOW_SECRET}"
+      env:
+        WORKFLOW_SECRET: 654321
