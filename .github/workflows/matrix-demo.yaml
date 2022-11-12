@@ -7,72 +7,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  one-dimension-matrix-job:
-    if: ${{ false }}
-    name: one-dimension-${{ matrix.VERSION }}
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        VERSION: [ v14, v13 ]
-
-    steps:
-
-      - name: Checkout source repo
-        uses: actions/checkout@v3
-
-      - name: Display ${{matrix.VERSION}} value
-        run: |
-          echo "Display matrix value: ${{matrix.VERSION}}"
-
-      - name: show env var 
-        run: |
-          echo "$GITHUB_RUN_ID"
-          echo "$GITHUB_RUN_NUMBER"
-
-      - name: Say hello to ${{matrix.VERSION}}
-        run: |
-          echo "Hello, ${{matrix.VERSION}} ! This is ${{env.NAME}} from ${{env.REPO}}"
-          ls -l ${{ matrix.VERSION }} || true
-
-  two-dimensions-matrix-job:
-    if: ${{ false }}
-    runs-on: ubuntu-latest
-    needs: one-dimension-matrix-job
-
-    strategy:
-      matrix:
-        VERSION_CODE: [ v14, v13, v12, v11 ]
-        VERSION_NAME: [ ppc, s390, x86]
-        include:
-          - VERSION_CODE: v15
-            VERSION_NAME: x86
-        exclude:
-          - VERSION_NAME: x86
-
-    steps:
-
-      - name: Checkout source repo
-        uses: actions/checkout@v3
-
-      - name: Display ${{matrix.VERSION_CODE}} value
-        run: |
-          echo "Display matrix value: ${{matrix.VERSION_CODE}} -> ${{matrix.VERSION_NAME}}"
-
-      - name: Say hello to ${{matrix.VERSION_NAME}}
-        run: |
-          echo "Hello, ${{matrix.VERSION_NAME}} ! This is ${{env.NAME}} from ${{env.REPO}}"
-
   package:
-    name: package-${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.architecture }}:(${{ toJson(matrix) }})
+    #name: smoke-test-${{ matrix.distro }}/${{ matrix.distro-version }}/${{ matrix.architecture }}:(${{ matrix.pg-version }})
+    name: ${{ matrix.name }}
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        include:  [{"distro": "sles", "distro-version": "15sp3", "architecture": "amd64", "package-version": "8.7.0-1.3418945733.119.1", "package-type": "rpm", "name": "amd64"}, {"distro": "sles", "distro-version": "15sp3", "architecture": "ppc64le", "package-version": "8.7.0-1.3418945733.119.1", "package-type": "rpm", "name": "ppc64le"}, {"distro": "sles", "distro-version": "15sp3", "architecture": "s390x", "package-version": "8.7.0-1.3418945733.119.1", "package-type": "rpm", "name": "s390x"}]
+        include:  [{"distro": "el", "distro-version": "8", "architecture": "amd64", "pg-version": "v15", "package-type": "rpm", "name": "el_8_amd64"}, {"distro": "el", "distro-version": "8", "architecture": "ppc64le", "pg-version": "v15", "package-type": "rpm", "name": "el_8_ppc64le"}, {"distro": "ubuntu", "distro-version": "22.04", "architecture": "amd64", "pg-version": "v15", "package-type": "rpm", "name": "ubuntu_2204"},{"distro": "ubuntu", "distro-version": "20.04", "architecture": "amd64", "pg-version": "v15", "package-type": "rpm", "name": "ubuntu_2004"},{"distro": "debian", "distro-version": "10", "architecture": "amd64", "pg-version": "v15", "package-type": "rpm", "name": "debian_10"}]
 
     steps:
       - name: Display matrix values
         run: |
-          echo "Display matrix value: ${{matrix.distro}}-${{matrix.distro-version}}-${{matrix.package-version}}"
+          echo "Display matrix value: ${{matrix.distro}}-${{matrix.distro-version}}-${{matrix.pg-version}}"
 
