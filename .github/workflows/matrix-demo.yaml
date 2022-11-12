@@ -9,12 +9,12 @@ on:
 jobs:
   package:
     #name: smoke-tests-${{ matrix.name }}
-    name: smoke-tests-${{ matrix.distro }}/${{ matrix.distro-version }}/${{ matrix.architecture }}:(${{ matrix.pg-version }})
+    name: smoke-tests-${{ matrix.distro }}/${{ matrix.distro-version[0:2] }}/${{ matrix.architecture }}:(${{ matrix.pg-version }})
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        include:  [{"distro": "el", "distro-version": "8", "architecture": "amd64", "pg-version": "v15", "package-type": "rpm", "name": "el_8_amd64"}, {"distro": "el", "distro-version": "8", "architecture": "ppc64le", "pg-version": "v15", "package-type": "rpm", "name": "el_8_ppc64le"}, {"distro": "ubuntu", "distro-version": "22.04", "architecture": "amd64", "pg-version": "v15", "package-type": "rpm", "name": "ubuntu_2204"},{"distro": "ubuntu", "distro-version": "20.04", "architecture": "amd64", "pg-version": "v15", "package-type": "rpm", "name": "ubuntu_2004"},{"distro": "debian", "distro-version": "10", "architecture": "amd64", "pg-version": "v15", "package-type": "rpm", "name": "debian_10"}]
+        include:  [{"distro": "el", "distro-version": "08", "architecture": "amd64", "pg-version": "v15", "package-type": "rpm", "name": "el_8_amd64"}, {"distro": "el", "distro-version": "08", "architecture": "ppc64le", "pg-version": "v15", "package-type": "rpm", "name": "el_8_ppc64le"}, {"distro": "ubuntu", "distro-version": "22.04", "architecture": "amd64", "pg-version": "v15", "package-type": "rpm", "name": "ubuntu_2204"},{"distro": "ubuntu", "distro-version": "20.04", "architecture": "amd64", "pg-version": "v15", "package-type": "rpm", "name": "ubuntu_2004"},{"distro": "debian", "distro-version": "10", "architecture": "amd64", "pg-version": "v15", "package-type": "rpm", "name": "debian_10"}]
 
     steps:
       - name: Display matrix values
