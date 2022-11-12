@@ -24,3 +24,8 @@ runs:
       shell: bash
       run: |
         echo "Conditional step is executed"
+
+    - name: check environment variable
+      shell: bash
+      run: |
+        echo "${WORKFLOW_SECRET}"

@@ -17,6 +17,9 @@ on:
           - testing
           - release
 
+env:
+  WORKFLOW_SECRET: 123456
+
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
