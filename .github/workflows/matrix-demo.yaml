@@ -64,7 +64,7 @@ jobs:
           echo "Hello, ${{matrix.VERSION_NAME}} ! This is ${{env.NAME}} from ${{env.REPO}}"
 
   package:
-    name: package-${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.architecture }}:(${{ matrix.values }})
+    name: package-${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.architecture }}:(${{ toJson(matrix) }})
     runs-on: ubuntu-latest
 
     strategy:
