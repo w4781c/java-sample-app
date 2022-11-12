@@ -61,7 +61,8 @@ jobs:
         run: |
           echo "Hello, ${{matrix.VERSION_NAME}} ! This is ${{env.NAME}} from ${{env.REPO}}"
 
-  matrix-job-from-json:
+  package:
+    name: ${{ matrix.name }}
     runs-on: ubuntu-latest
     needs: two-dimensions-matrix-job
 
