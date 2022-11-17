@@ -19,7 +19,7 @@ on:
 
       packaging-ref:
         description: foundation packaging config branch/ref name
-        default: main
+        default: ref_default 
         required: true
         type: string
 
@@ -37,6 +37,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
+          ref: ${{ inputs.packaging-ref }}
           lfs: true
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
@@ -61,13 +62,14 @@ jobs:
           who-to-greet: ppc64le 
 
       - name: inputs testing
+        shell: bash
         run: |
           echo "I am a testing step"
           ls -l
           md5sum image.png || true
           echo "${{ inputs.maturity }}"
           echo "${{ inputs.maturity.default }}"
-          echo "${{ inputs.packaging-ref || master }}"
+          echo "packaging-ref: ${{ inputs.packaging-ref }}"
 
       - name: Get maturity
         id: get-maturity
