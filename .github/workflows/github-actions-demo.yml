@@ -23,7 +23,7 @@ on:
 
       packaging-ref:
         description: foundation packaging config branch/ref name
-        default: ref_default 
+        default: ref_default
         required: true
         type: string
 
@@ -45,9 +45,9 @@ jobs:
           lfs: true
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - run: echo "Dryrun: ${{ inputs.dryrun }}"
       - name: Set PEM Version
         run: |
+          echo "Dryrun: ${{ inputs.dryrun }}"
           echo "PEM_VERSION=8.5.0" >> $GITHUB_ENV
           echo "RELEASE_VERSION=1" >> $GITHUB_ENV
           echo "$GITHUB_RUN_ID"
@@ -64,7 +64,7 @@ jobs:
       - name: composite job 2
         uses: ./actions/composite
         with:
-          who-to-greet: ppc64le 
+          who-to-greet: ppc64le
 
       - name: inputs testing
         shell: bash
@@ -85,7 +85,7 @@ jobs:
       - name: List files in the repository
         run: |
           pwd
-          whoami 
+          whoami
           mkdir -p builds.edb/debian/x86_64/
           ls ${{ github.workspace }} | tee builds.edb/debian/x86_64/edb-pem-files1-deb11_amd64.txt
           ls ${{github.workspace}} | tee builds.edb/debian/x86_64/edb-pem-files2-deb11_amd64.txt
