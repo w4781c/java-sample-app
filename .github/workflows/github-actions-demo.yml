@@ -23,11 +23,11 @@ on:
 
       yes_or_no:
         description: Yes or No
-        default: no
+        default: "no"
         type: choice
         options:
-          - yes
-          - no
+          - "yes"
+          - "no"
 
 
 env:
