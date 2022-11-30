@@ -23,8 +23,7 @@ on:
 
       yes_or_no:
         description: Yes or No
-        default: no 
-        required: true
+        default: no
         type: choice
         options:
           - yes
