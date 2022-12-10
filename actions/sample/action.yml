@@ -1,0 +1,28 @@
+name: Sample Action
+description: |
+  Github action sample
+  
+  Usage example:
+  ```yaml
+    - name: Get Input value
+      id: get-key-value
+      uses: ./actions/sample
+      with:
+      key: ${{ inputs.key }}
+  ```
+
+inputs:
+  key:
+    description: Sample key
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get sample key/value
+      id: get-key-value
+      run: |
+        SAMPLE_KEY=${{ inputs.key}}
+        echo "SAMPLE_KEY=${SAMPLE_KEY}" >> "$GITHUB_ENV"
+        echo "SAMPLE_KEY = ${SAMPLE_KEY}"
+      shell: bash

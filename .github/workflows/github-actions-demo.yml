@@ -4,6 +4,11 @@ on:
     branches: [ workflow, main, release ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      key:
+        description: sample key
+        required: true
+        default: snapshot
 
 jobs:
   Explore-GitHub-Actions:
@@ -36,6 +41,10 @@ jobs:
         with:
           name: files
           path: builds.edb/debian/x86_64/edb-pem*deb11_amd64.txt
+      - name: sample action
+        uses: ./actions/sample
+        with:
+          key: ${{ inputs.key }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
   Test-GitHub-Actions:
     if: ${{ false }}  # disable for now
