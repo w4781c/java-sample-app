@@ -7,8 +7,6 @@ description: |
     - name: Get Input value
       id: get-key-value
       uses: ./actions/sample
-      with:
-        key: ${{ inputs.key }}
   ```
 
 inputs:
