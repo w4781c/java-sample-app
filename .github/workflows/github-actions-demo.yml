@@ -101,7 +101,7 @@ jobs:
         run: |
           echo "I am a testing step on non-master branch"
 
-  Trigger-another-workflow
+  Trigger-another-workflow:
     needs: [ Explore-GitHub-Actions ]
     runs-on: ubuntu-latest
     steps:
