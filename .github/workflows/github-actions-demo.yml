@@ -101,3 +101,16 @@ jobs:
         run: |
           echo "I am a testing step on non-master branch"
 
+  Trigger-another-workflow
+    needs: [ Explore-GitHub-Actions ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: step testing
+        run: |
+          curl -L \
+              -X POST \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"\
+              https://api.github.com/repos/edbjunwang/java-sample-app/actions/workflows/boolean-demo.yaml/dispatches \
+              -d '{"ref":"master","inputs":{"foo":"true"}}'
+
