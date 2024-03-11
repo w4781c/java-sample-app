@@ -19,19 +19,25 @@ jobs:
 
     strategy:
       matrix:
-        distro: [ ubuntu ]
-        distro-version: [ 20.04, 22.04 ]
-        arch: [ amd64 ]
+        distro: [ el ]
+        distro-version: [ 7, 8, 9 ]
+        arch: [ amd64, ppc64le, amd64 ]
         include:
-          - distro: [ debian ]
-            distro-version: [ 10, 11 ]
-            arch: [ amd64 ]
-          - distro: [ el ]
-            distro-version: [ 7, 8, 9]
-            arch: [ amd64, ppc64le, amd64 ]
-          - distro: [ sles ]
-            distro-version: [ 12sp5, 15sp4 ]
-            arch: [ amd64, ppc64le, amd64 ]
+          - distro: debian
+            distro-version: 10
+            arch: amd64
+          - distro: debian
+            distro-version: 11
+            arch: amd64
+          - distro: sles
+            distro-version: 12sp5
+            arch: amd64
+          - distro: sles
+            distro-version: 12sp5
+            arch: ppc64le 
+          - distro: sles
+            distro-version: 12sp5
+            arch: s390x 
           - distro: windows
             distro-version: 2019
             arch: x64
@@ -57,5 +63,7 @@ jobs:
       - name: Display matrix value
         shell: bash
         run: |
+          pwd
+          ls -al
           ls -altr *.txt
 
