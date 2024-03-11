@@ -47,19 +47,44 @@ jobs:
             arch: ppc64le
 
     steps:
-      - name: Display matrix value
+      - name: Checkout source repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Set Python version
         shell: bash
         run: |
-          echo "distro: ${{ matrix.distro }}"
-          echo "distro-version: ${{ matrix.distro-version }}"
-          echo "arch : ${{ matrix.arch }}"
-          touch ${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}.txt
+          if [[ "${{ matrix.name }}" == "windows-x64" ]] ; then
+            echo "DIST=windows" >> $GITHUB_ENV
+            echo "ARCH=x64" >> $GITHUB_ENV
+          else
+            echo "DIST=${{ matrix.distro}}-${{ matrix.distro-version}}" >> $GITHUB_ENV
+            echo "ARCH=${{ matrix.architecture }}" >> $GITHUB_ENV
+          fi
+
+          if [[ "$DIST" == "sles-12sp5" ]] || [[ "$DIST" == "el-7" ]] || [[ "$DIST" == "el-9" ]] ; then
+            echo "PYTHON_VERSION=3.9" >> $GITHUB_ENV
+          else
+            echo "PYTHON_VERSION=3.10" >> $GITHUB_ENV
+          fi
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "$PYTHON_VERSION"
+
+      - name: Install Python dependencies
+        shell: bash
+        run: |
+          pip install -r requirements.txt
+          pip freeze | tee -a requirements.${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}
+
 
       - name: Upload  file
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}.txt
-          path: ${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}.txt
+          name: requirements.${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}
+          path: requirements.${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}
 
   collect:
     runs-on: ubuntu-latest
@@ -79,5 +104,5 @@ jobs:
         run: |
           pwd
           ls -al
-          ls -altr *.txt
+          ls -altr python-dependency
 
