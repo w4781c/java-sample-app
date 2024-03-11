@@ -68,7 +68,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
 
-      - name: Display matrix value
+      - name: check download artifacts
         shell: bash
         run: |
           pwd
