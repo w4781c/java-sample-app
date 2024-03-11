@@ -69,7 +69,10 @@ jobs:
       - name: Checkout source repo
         uses: actions/checkout@v3
 
-      - uses: actions/download-artifact@v4
+      - Download files
+        uses: actions/download-artifact@v4
+        with:
+          path: python-dependency
 
       - name: check download artifacts
         shell: bash
