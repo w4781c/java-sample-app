@@ -92,7 +92,7 @@ jobs:
         shell: bash
         run: |
           sudo apt-get install -y libkrb5-dev
-          cp requirements.txt pip-requirements.txt
+          cp requirements.txt pip_requirements.txt
 
           # urllib3 2.x requires openssl 1.1.1+, while RHEL/7 and SLES/12 have openssl 1.0.2 from system
           if [[ "${{ matrix.distro}}-${{ matrix.distro-version}}" == "sles-12sp5" ]] || [[ "${{ matrix.distro}}-${{ matrix.distro-version}}" == "el-7" ]] ; then
@@ -105,7 +105,8 @@ jobs:
             fi
           fi
 
-          pip install -r pip-requirements.txt
+          pip install -r pip_requirements.txt
+          rm -f pip_requirements.txt
           pip freeze | tee -a requirements.${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}.txt
 
 
