@@ -66,6 +66,9 @@ jobs:
     needs: matrix-job
 
     steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v3
+
       - uses: actions/download-artifact@v4
         with:
           merge-multiple: true
