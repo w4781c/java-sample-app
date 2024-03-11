@@ -2,7 +2,7 @@ name: Matrix-debug
 
 on:
   push:
-    branches: [ dev/matrix ]
+    branches: [ jw/matrix ]
   workflow_dispatch:
 
 jobs:
