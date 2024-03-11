@@ -34,10 +34,10 @@ jobs:
             arch: amd64
           - distro: sles
             distro-version: 12sp5
-            arch: ppc64le 
+            arch: ppc64le
           - distro: sles
             distro-version: 12sp5
-            arch: s390x 
+            arch: s390x
           - distro: windows
             distro-version: 2017
             arch: x64
@@ -107,5 +107,14 @@ jobs:
           pwd
           ls -al
           ls -altr python-dependency
-          md5sum python-dependency/*
+          mkdir -p web/python-dependencies
+          mv python-dependency/requirements.*.txt web/python-dependencies/
+          rm -rf python-dependency
+          git add web/python-dependencies
+          git status
+          git remote -v
+          git config --global user.name 'PEM CI'
+          git config --global user.email 'PEM-CI@users.noreply.github.com'
+          git commit -am "chore: update Python dependencies"
+          git push
 
