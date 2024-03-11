@@ -116,6 +116,5 @@ jobs:
           git config --global user.name 'PEM CI'
           git config --global user.email 'PEM-CI@users.noreply.github.com'
           git commit -am "chore: update Python dependencies"
-          echo "Push to origin"
           git push
 
