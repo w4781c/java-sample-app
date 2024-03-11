@@ -21,7 +21,7 @@ jobs:
       matrix:
         distro: [ el ]
         distro-version: [ 7, 8, 9 ]
-        arch: [ amd64, ppc64le, amd64 ]
+        arch: [ amd64, ppc64le, s390x ]
         include:
           - distro: debian
             distro-version: 10
@@ -55,11 +55,19 @@ jobs:
           echo "arch : ${{ matrix.arch }}"
           touch ${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}.txt
 
+      - name: Upload  file
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}.txt
+          path: ${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}.txt
+
   collect:
     runs-on: ubuntu-latest
     needs: matrix-job
 
     steps:
+      - uses: actions/download-artifact@v4
+
       - name: Display matrix value
         shell: bash
         run: |
