@@ -75,7 +75,7 @@ jobs:
             echo "ARCH=x64" >> $GITHUB_ENV
           else
             echo "DIST=${{ matrix.distro}}-${{ matrix.distro-version}}" >> $GITHUB_ENV
-            echo "ARCH=${{ matrix.architecture }}" >> $GITHUB_ENV
+            echo "ARCH=${{ matrix.arch }}" >> $GITHUB_ENV
           fi
 
           if [[ "$DIST" == "sles-12sp5" ]] || [[ "$DIST" == "el-7" ]] || [[ "$DIST" == "el-9" ]] ; then
@@ -92,7 +92,20 @@ jobs:
         shell: bash
         run: |
           sudo apt-get install -y libkrb5-dev
-          pip install -r requirements.txt
+          cp requirements.txt pip-requirements.txt
+
+          # urllib3 2.x requires openssl 1.1.1+, while RHEL/7 and SLES/12 have openssl 1.0.2 from system
+          if [[ "${{ matrix.distro}}-${{ matrix.distro-version}}" == "sles-12sp5" ]] || [[ "${{ matrix.distro}}-${{ matrix.distro-version}}" == "el-7" ]] ; then
+            sed -ie 's|urllib3=.*$|urllib3==1.*|' pip_requirements.txt
+
+            # Cryptography new version is not supporting openssl < 1.1.1
+            # Reference: https://cryptography.io/en/latest/faq/#installing-cryptography-with-openssl-0-9-8-1-0-0-1-0-1-1-0-2-1-1-0-fails
+            if [[ "${{ matrix.arch }}" != "amd64" ]]; then
+              sed -ie 's|cryptography.*$|cryptography<=3.0|' pip_requirements.txt
+            fi
+          fi
+
+          pip install -r pip-requirements.txt
           pip freeze | tee -a requirements.${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}.txt
 
 
