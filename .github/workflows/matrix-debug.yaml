@@ -67,6 +67,8 @@ jobs:
 
     steps:
       - uses: actions/download-artifact@v4
+        with
+          merge-multiple: true
 
       - name: check download artifacts
         shell: bash
