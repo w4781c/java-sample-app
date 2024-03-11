@@ -69,7 +69,7 @@ jobs:
       - name: Checkout source repo
         uses: actions/checkout@v3
 
-      - Download files
+      - name: Download files
         uses: actions/download-artifact@v4
         with:
           path: python-dependency
