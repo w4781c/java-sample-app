@@ -71,7 +71,7 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "$PYTHON_VERSION"
+          python-version: "${{ env.PYTHON_VERSION }}"
 
       - name: Install Python dependencies
         shell: bash
@@ -105,4 +105,5 @@ jobs:
           pwd
           ls -al
           ls -altr python-dependency
+          md5sum python-dependency/*
 
