@@ -105,9 +105,10 @@ jobs:
             fi
           fi
 
-          pip install -r pip_requirements.txt
+          python -m venv venv
+          venv/bin/pip install -r pip_requirements.txt
           rm -f pip_requirements.txt
-          pip freeze | tee -a requirements.${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}.txt
+          venv/bin/pip freeze | tee -a requirements.${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}.txt
 
 
       - name: Upload  file
