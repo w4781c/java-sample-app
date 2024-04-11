@@ -1,0 +1,150 @@
+name: Matrix-debug
+
+on:
+  push:
+    branches: [ jw/matrix ]
+  workflow_dispatch:
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+
+  matrix-job:
+    runs-on: ubuntu-latest
+    needs: prepare
+
+    strategy:
+      matrix:
+        distro: [ el ]
+        distro-version: [ 7, 8, 9 ]
+        arch: [ amd64, ppc64le, s390x ]
+        include:
+          - distro: debian
+            distro-version: 10
+            arch: amd64
+          - distro: debian
+            distro-version: 11
+            arch: amd64
+          - distro: ubuntu
+            distro-version: 20.04
+            arch: amd64
+          - distro: ubuntu
+            distro-version: 22.04
+            arch: amd64
+          - distro: sles
+            distro-version: 12sp5
+            arch: amd64
+          - distro: sles
+            distro-version: 12sp5
+            arch: ppc64le
+          - distro: sles
+            distro-version: 12sp5
+            arch: s390x
+          - distro: sles
+            distro-version: 15sp4
+            arch: amd64
+          - distro: sles
+            distro-version: 15sp4
+            arch: ppc64le
+          - distro: sles
+            distro-version: 15sp4
+            arch: s390x
+          - distro: windows
+            distro-version: 2017
+            arch: x64
+        exclude:
+          - distro: el
+            distro-version: 7
+            arch: s390x
+
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set Python version
+        shell: bash
+        run: |
+          if [[ "${{ matrix.name }}" == "windows-x64" ]] ; then
+            echo "DIST=windows" >> $GITHUB_ENV
+            echo "ARCH=x64" >> $GITHUB_ENV
+          else
+            echo "DIST=${{ matrix.distro}}-${{ matrix.distro-version}}" >> $GITHUB_ENV
+            echo "ARCH=${{ matrix.arch }}" >> $GITHUB_ENV
+          fi
+
+          if [[ "$DIST" == "sles-12sp5" ]] || [[ "$DIST" == "el-7" ]] || [[ "$DIST" == "el-9" ]] ; then
+            echo "PYTHON_VERSION=3.9" >> $GITHUB_ENV
+          else
+            echo "PYTHON_VERSION=3.10" >> $GITHUB_ENV
+          fi
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "${{ env.PYTHON_VERSION }}"
+
+      - name: Install Python dependencies
+        shell: bash
+        run: |
+          sudo apt-get install -y libkrb5-dev
+          cp requirements.txt pip_requirements.txt
+
+          # urllib3 2.x requires openssl 1.1.1+, while RHEL/7 and SLES/12 have openssl 1.0.2 from system
+          if [[ "${{ matrix.distro}}-${{ matrix.distro-version}}" == "sles-12sp5" ]] || [[ "${{ matrix.distro}}-${{ matrix.distro-version}}" == "el-7" ]] ; then
+            sed -ie 's|urllib3=.*$|urllib3==1.*|' pip_requirements.txt
+
+            # Cryptography new version is not supporting openssl < 1.1.1
+            # Reference: https://cryptography.io/en/latest/faq/#installing-cryptography-with-openssl-0-9-8-1-0-0-1-0-1-1-0-2-1-1-0-fails
+            if [[ "${{ matrix.arch }}" != "amd64" ]]; then
+              sed -ie 's|cryptography.*$|cryptography<=3.0|' pip_requirements.txt
+            fi
+          fi
+
+          python -m venv venv
+          venv/bin/pip install -r pip_requirements.txt
+          rm -f pip_requirements.txt
+          venv/bin/pip freeze | tee -a requirements.${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}.txt
+
+
+      - name: Upload  file
+        uses: actions/upload-artifact@v4
+        with:
+          name: requirements.${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}.txt
+          path: requirements.${{ matrix.distro }}-${{ matrix.distro-version }}-${{ matrix.arch }}.txt
+
+  collect:
+    runs-on: ubuntu-latest
+    needs: matrix-job
+
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+
+      - name: Download files
+        uses: actions/download-artifact@v4
+        with:
+          path: python-dependency
+          merge-multiple: true
+
+      - name: check download artifacts
+        shell: bash
+        run: |
+          pwd
+          ls -al
+          ls -altr python-dependency
+          mkdir -p web/python-dependencies
+          mv python-dependency/requirements.*.txt web/python-dependencies/
+          rm -rf python-dependency
+          git add web/python-dependencies
+          git status
+          git remote -v
+          git config --global user.name 'PEM CI'
+          git config --global user.email 'PEM-CI@users.noreply.github.com'
+          git commit -am "chore: update Python dependencies" || echo "No changes to commit"
+          git push
+

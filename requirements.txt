@@ -1,12 +1,43 @@
-coverage>=4.4.1
-extras==1.0.0
-fixtures==3.0.0
-linecache2==1.0.0
-pbr==3.1.1
-pycodestyle>=2.5.0
-python-mimeparse==1.6.0
-testscenarios==0.5.0
-testtools==2.3.0
-traceback2==1.4.0
-blessings==1.7
-colour-runner==0.1.1
+###############################################################################
+#
+# IMPORTANT:
+#
+# If runtime or build time dependencies are changed in this file, the committer
+# *must* ensure the DEB and RPM package maintainers are informed as soon as
+# possible.
+#
+###############################################################################
+
+MarkupSafe==2.*
+Flask==2.*
+Flask-Babel==2.*
+Flask-Gravatar==0.*
+Flask-Login==0.*
+Flask-Mail==0.*
+Flask-Migrate==3.*
+Flask-SQLAlchemy==2.*
+Flask-Security-Too==5.*
+Flask-Paranoid==0.*
+Flask-WTF==1.*
+Flask-Compress==1.*
+Flask-Script==2.0.5
+Flask-SocketIO<=5.2.0
+passlib==1.*
+pytz==2023.*
+requests==2.*
+urllib3==2.*
+six==1.*
+sqlparse==0.*
+Werkzeug==2.*
+WTForms==3.*
+psutil==5.*
+psycopg2==2.8.*
+python-dateutil==2.*
+SQLAlchemy==1.*
+bcrypt==4.*
+cryptography==42.*
+sshtunnel==0.*
+gssapi==1.8.*
+pyotp==2.*
+qrcode==7.*
+greenlet==1.1.2; python_version <= '3.10'
