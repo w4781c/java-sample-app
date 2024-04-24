@@ -9,6 +9,7 @@ cffi==1.16.0
 charset-normalizer==3.3.2
 click==8.1.7
 cryptography==42.0.5
+Cython==0.29.28
 decorator==5.1.1
 dnspython==2.6.1
 email_validator==2.1.1
