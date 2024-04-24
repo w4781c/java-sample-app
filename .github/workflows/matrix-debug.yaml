@@ -80,11 +80,11 @@ jobs:
         shell: bash
         run: |
           if [[ "${{ matrix.name }}" == "windows-x64" ]] ; then
-            echo "DIST=windows" >> $GITHUB_ENV
-            echo "ARCH=x64" >> $GITHUB_ENV
+            DIST=windows
+            ARCH=x64
           else
-            echo "DIST=${{ matrix.distro}}-${{ matrix.distro-version}}" >> $GITHUB_ENV
-            echo "ARCH=${{ matrix.arch }}" >> $GITHUB_ENV
+            DIST=${{ matrix.distro}}-${{ matrix.distro-version}}
+            ARCH=${{ matrix.arch }}
           fi
 
           if [[ "$DIST" == "sles-12sp5" ]] || [[ "$DIST" == "el-7" ]] || [[ "$DIST" == "el-9" ]] ; then
