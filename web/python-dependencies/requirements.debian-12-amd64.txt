@@ -9,6 +9,7 @@ cffi==1.16.0
 charset-normalizer==3.3.2
 click==8.1.7
 cryptography==42.0.5
+Cython==3.0.10
 decorator==5.1.1
 dnspython==2.6.1
 email_validator==2.1.1
@@ -26,7 +27,7 @@ Flask-Security-Too==5.4.3
 Flask-SocketIO==5.2.0
 Flask-SQLAlchemy==2.5.1
 Flask-WTF==1.2.1
-greenlet==1.1.2
+greenlet==3.0.3
 gssapi==1.8.3
 h11==0.14.0
 idna==3.7
