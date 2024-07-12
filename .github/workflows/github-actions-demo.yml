@@ -43,6 +43,13 @@ jobs:
           echo "$GITHUB_PATH"
           ls -al $GITHUB_PATH || true
 
+      - name: Check folder
+        run: |
+          pwd
+          ls -al
+          cd docker
+          ls -al
+
       - name: composite job 1
         uses: ./actions/composite
         with:
