@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         distro: [ el ]
-        distro-version: [ 7, 8, 9 ]
+        distro-version: [ 8, 9 ]
         arch: [ amd64, ppc64le, s390x ]
         include:
           - distro: debian
@@ -65,10 +65,6 @@ jobs:
           - distro: windows
             distro-version: 2017
             arch: x64
-        exclude:
-          - distro: el
-            distro-version: 7
-            arch: s390x
 
     steps:
       - name: Checkout source repo
