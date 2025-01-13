@@ -25,5 +25,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install pycodestyle
           which pycodestyle
-          git --no-pager diff ${{ vars.GITHUB_BASE_REF }} ${{ vars.GITHUB_HEAD_REF }} --name-only |grep ".py$" |xargs git --no-pager diff ${{ vars.GITHUB_BASE_REF }} ${{ vars.GITHUB_HEAD_REF }} | pycodestyle --show-source --diff
+          echo "base ref: $GITHUB_BASE_REF"
+          echo "head ref: $GITHUB_HEAD_REF"
+          git --no-pager diff $GITHUB_BASE_REF $GITHUB_HEAD_REF --name-only |grep ".py$" |xargs git --no-pager diff $GITHUB_BASE_REF $GITHUB_HEAD_REF | pycodestyle --show-source --diff
 
