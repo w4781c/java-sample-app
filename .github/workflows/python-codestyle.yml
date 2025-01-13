@@ -25,6 +25,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install pycodestyle
           which pycodestyle
+
+      - name: Check Python code style
+        run: |
           echo "base ref: $GITHUB_BASE_REF"
           git checkout $GITHUB_BASE_REF
           echo "head ref: $GITHUB_HEAD_REF"
