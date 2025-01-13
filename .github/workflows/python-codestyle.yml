@@ -28,5 +28,6 @@ jobs:
           echo "base ref: $GITHUB_BASE_REF"
           git checkout $GITHUB_BASE_REF
           echo "head ref: $GITHUB_HEAD_REF"
+          git checkout $GITHUB_HEAD_REF
           git --no-pager diff $GITHUB_BASE_REF $GITHUB_HEAD_REF --name-only |grep ".py$" |xargs git --no-pager diff $GITHUB_BASE_REF $GITHUB_HEAD_REF | pycodestyle --show-source --diff
 
