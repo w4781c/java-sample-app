@@ -3,7 +3,9 @@
 num1 = 1.5
 num2 = 6.3
 
-# make a very long line to check if pycodestype can detect that... blah blaaaahhh blaahhhh blaaaaaaaaaaaaahhhhhhh blaaaaaaaaaaaahhhh blahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+# make a very long line to check if pycodestype can detect that...
+# blah blaaaahhh blaahhhh blaaaaaaaaaaaaahhhhhhh
+# blaaaaaaaaaaaahhhh blahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
 
 # Add two numbers
 sum = num1 + num2
